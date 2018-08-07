@@ -1,0 +1,852 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{p6}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{dmg2-assignment-problem-6}{%
+\section{DMG2 Assignment : Problem 6}\label{dmg2-assignment-problem-6}}
+
+    \emph{Naive Bayes Text Classifier}
+
+    Number of classes : 20
+
+In each class, there are a number of documents, each one corresponding
+to a date. The test-train split will be based on the date.
+
+\textbf{Preprocessing in each document :} * Keep only From, Subject,
+Host, Organization, Data * Remove special characters, stop words * Stem
+the words * There are numbers in the data, as addresses, phone numbers,
+currency, etc. Should they be removed?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}\PY{o}{,}\PY{n+nn}{re}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{nltk}\PY{o}{,}\PY{n+nn}{unicodedata}
+        \PY{k+kn}{import} \PY{n+nn}{operator}\PY{o}{,}\PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{inflect}
+        
+        \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{corpus} \PY{k}{import} \PY{n}{stopwords}
+        \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{stem} \PY{k}{import} \PY{n}{WordNetLemmatizer}
+        \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{stem}\PY{n+nn}{.}\PY{n+nn}{lancaster} \PY{k}{import} \PY{n}{LancasterStemmer}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{CountVectorizer}
+\end{Verbatim}
+
+
+    \hypertarget{reading-files}{%
+\subsection{Reading Files}\label{reading-files}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{DATA\PYZus{}DIR} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/jishnu/Documents/ISB/Term3/dmg2/assignments/hw\PYZus{}assignment1/dmg2/datasets/20\PYZus{}newsgroups}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{labels}\PY{p}{,}\PY{n}{files\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{root}\PY{p}{,} \PY{n}{dirs}\PY{p}{,} \PY{n}{files} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{walk}\PY{p}{(}\PY{n}{DATA\PYZus{}DIR}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{files}\PY{p}{:}
+                \PY{n}{labels}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/jishnu/Documents/ISB/Term3/dmg2/assignments/hw\PYZus{}assignment1/dmg2/datasets/20\PYZus{}newsgroups/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{root}\PY{p}{)}\PY{p}{)}
+                \PY{n}{files\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{root}\PY{p}{,}\PY{n}{file}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{files\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{files\PYZus{}list}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{labels}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n+nb}{list}\PY{p}{(}\PY{n}{files\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} ['comp.graphics',
+         'talk.religion.misc',
+         'rec.sport.baseball',
+         'comp.sys.ibm.pc.hardware',
+         'rec.motorcycles',
+         'talk.politics.guns',
+         'misc.forsale',
+         'alt.atheism',
+         'talk.politics.misc',
+         'talk.politics.mideast',
+         'rec.autos',
+         'comp.windows.x',
+         'sci.crypt',
+         'sci.electronics',
+         'soc.religion.christian',
+         'rec.sport.hockey',
+         'comp.os.ms-windows.misc',
+         'sci.space',
+         'comp.sys.mac.hardware',
+         'sci.med']
+\end{Verbatim}
+            
+    \hypertarget{train---test-split}{%
+\subsection{Train - Test Split}\label{train---test-split}}
+
+    For each class, splitting the documents to training and test based on a
+70-30 rule.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{files\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{threshold} \PY{o}{=} \PY{n}{files\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{files\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{l+m+mf}{0.7}
+            \PY{n}{threshold} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{threshold}\PY{p}{)}\PY{p}{)}
+            \PY{n}{train} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{files\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{files\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{n}{threshold}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{n}{test} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{files\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{files\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{threshold}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+13997 6000
+
+    \end{Verbatim}
+
+    \hypertarget{creating-dictionary-of-5000-most-frequent-words-in-each-class}{%
+\subsection{Creating dictionary of 5000 most frequent words in each
+class}\label{creating-dictionary-of-5000-most-frequent-words-in-each-class}}
+
+    Calculating P(W\textbar{}C) for each word in each class, by normalizing
+using Laplace smoothing parameter of 30.
+
+Here, CountVectorizer class from scikit-learn has been used to create
+the Document-Term Matrix. The class has an inbuilt preprocessing module.
+After calculating the document term matrix, the counts of document in
+which each word occurs has been calculated to find the most frequent
+ones for each class. Then, the probability of word given class has been
+calculated for the top 5000 words. Laplace smoothing parameter of 30 has
+been used when calculating P(W\textbar{}C).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{remove\PYZus{}non\PYZus{}ascii}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Remove non\PYZhy{}ASCII characters from list of tokenized words\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{new\PYZus{}words} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                \PY{n}{new\PYZus{}word} \PY{o}{=} \PY{n}{unicodedata}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NFKD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{word}\PY{p}{)}\PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ascii}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{new\PYZus{}words}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}word}\PY{p}{)}
+            \PY{k}{return} \PY{n}{new\PYZus{}words}
+        
+        \PY{k}{def} \PY{n+nf}{to\PYZus{}lowercase}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Convert all characters to lowercase from list of tokenized words\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{new\PYZus{}words} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                \PY{n}{new\PYZus{}word} \PY{o}{=} \PY{n}{word}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+                \PY{n}{new\PYZus{}words}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}word}\PY{p}{)}
+            \PY{k}{return} \PY{n}{new\PYZus{}words}
+        
+        \PY{k}{def} \PY{n+nf}{remove\PYZus{}punctuation}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Remove punctuation from list of tokenized words\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{new\PYZus{}words} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                \PY{n}{new\PYZus{}word} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[\PYZca{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{word}\PY{p}{)}
+                \PY{k}{if} \PY{n}{new\PYZus{}word} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                    \PY{n}{new\PYZus{}words}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}word}\PY{p}{)}
+            \PY{k}{return} \PY{n}{new\PYZus{}words}
+        
+        \PY{k}{def} \PY{n+nf}{replace\PYZus{}numbers}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Replace all interger occurrences in list of tokenized words with textual representation\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{p} \PY{o}{=} \PY{n}{inflect}\PY{o}{.}\PY{n}{engine}\PY{p}{(}\PY{p}{)}
+            \PY{n}{new\PYZus{}words} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                \PY{k}{if} \PY{n}{word}\PY{o}{.}\PY{n}{isdigit}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{pass}
+                    \PY{c+c1}{\PYZsh{}new\PYZus{}word = p.number\PYZus{}to\PYZus{}words(word)}
+                    \PY{c+c1}{\PYZsh{}new\PYZus{}words.append(new\PYZus{}word)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{new\PYZus{}words}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{word}\PY{p}{)}
+            \PY{k}{return} \PY{n}{new\PYZus{}words}
+        
+        \PY{k}{def} \PY{n+nf}{remove\PYZus{}stopwords}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Remove stop words from list of tokenized words\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{new\PYZus{}words} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                \PY{k}{if} \PY{n}{word} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{stopwords}\PY{o}{.}\PY{n}{words}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{new\PYZus{}words}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{word}\PY{p}{)}
+            \PY{k}{return} \PY{n}{new\PYZus{}words}
+        
+        \PY{k}{def} \PY{n+nf}{stem\PYZus{}words}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Stem words in list of tokenized words\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{stemmer} \PY{o}{=} \PY{n}{LancasterStemmer}\PY{p}{(}\PY{p}{)}
+            \PY{n}{stems} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                \PY{n}{stem} \PY{o}{=} \PY{n}{stemmer}\PY{o}{.}\PY{n}{stem}\PY{p}{(}\PY{n}{word}\PY{p}{)}
+                \PY{n}{stems}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{stem}\PY{p}{)}
+            \PY{k}{return} \PY{n}{stems}
+        
+        \PY{k}{def} \PY{n+nf}{lemmatize\PYZus{}verbs}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Lemmatize verbs in list of tokenized words\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{lemmatizer} \PY{o}{=} \PY{n}{WordNetLemmatizer}\PY{p}{(}\PY{p}{)}
+            \PY{n}{lemmas} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                \PY{n}{lemma} \PY{o}{=} \PY{n}{lemmatizer}\PY{o}{.}\PY{n}{lemmatize}\PY{p}{(}\PY{n}{word}\PY{p}{,} \PY{n}{pos}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{lemmas}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{lemma}\PY{p}{)}
+            \PY{k}{return} \PY{n}{lemmas}
+        
+        \PY{k}{def} \PY{n+nf}{normalize}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{:}
+            \PY{n}{words} \PY{o}{=} \PY{n}{remove\PYZus{}non\PYZus{}ascii}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+            \PY{n}{words} \PY{o}{=} \PY{n}{to\PYZus{}lowercase}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+            \PY{n}{words} \PY{o}{=} \PY{n}{remove\PYZus{}punctuation}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+            \PY{n}{words} \PY{o}{=} \PY{n}{replace\PYZus{}numbers}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+            \PY{n}{words} \PY{o}{=} \PY{n}{remove\PYZus{}stopwords}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+            \PY{k}{return} \PY{n}{words}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{c+c1}{\PYZsh{} Dictionary to hold vectorizer objects}
+         \PY{n}{vect\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{c+c1}{\PYZsh{} Dictionary to hold Document term matrix for each class.}
+         \PY{c+c1}{\PYZsh{} The document term matrix is converted to a Pandas DataFrame}
+         \PY{n}{class\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} List to hold words for each label}
+             \PY{n}{class\PYZus{}words\PYZus{}preprocessed} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{filename} \PY{o+ow}{in} \PY{n}{train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                 \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{filein}\PY{p}{:}
+                     \PY{n}{data} \PY{o}{=} \PY{n}{filein}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{words} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{W+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{p}{)}
+                 \PY{n}{words} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+                 \PY{n}{class\PYZus{}words\PYZus{}preprocessed}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{)}
+             \PY{n}{vect\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n+nb}{input}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{content}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{analyzer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{decode\PYZus{}error}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{vect\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{class\PYZus{}words\PYZus{}preprocessed}\PY{p}{)}\PY{o}{.}\PY{n}{todense}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{vect\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{get\PYZus{}feature\PYZus{}names}\PY{p}{(}\PY{p}{)}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5000}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+             \PY{n}{tot\PYZus{}freq} \PY{o}{=} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p(w|c)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{30}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{tot\PYZus{}freq} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{5000} \PY{o}{*} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}        
+                 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{c+c1}{\PYZsh{} \PYZsh{} Dictionary to hold vectorizer objects}
+         \PY{c+c1}{\PYZsh{} vect\PYZus{}dict = \PYZob{}\PYZcb{}}
+         \PY{c+c1}{\PYZsh{} \PYZsh{} Dictionary to hold Document term matrix for each class.}
+         \PY{c+c1}{\PYZsh{} \PYZsh{} The document term matrix is converted to a Pandas DataFrame}
+         \PY{c+c1}{\PYZsh{} class\PYZus{}dict = \PYZob{}\PYZcb{}}
+         \PY{c+c1}{\PYZsh{} for label in list(train[\PYZsq{}label\PYZsq{}].unique()):}
+         \PY{c+c1}{\PYZsh{}     vect\PYZus{}dict[label] = CountVectorizer(input=\PYZsq{}filename\PYZsq{},analyzer=\PYZsq{}word\PYZsq{},stop\PYZus{}words=\PYZsq{}english\PYZsq{},decode\PYZus{}error=\PYZsq{}ignore\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}     class\PYZus{}dict[label] = pd.DataFrame(vect\PYZus{}dict[label].fit\PYZus{}transform(list(train.loc[train[\PYZsq{}label\PYZsq{}] == label][\PYZsq{}filename\PYZsq{}])).todense().T)}
+         \PY{c+c1}{\PYZsh{}     class\PYZus{}dict[label][\PYZsq{}count\PYZus{}docs\PYZsq{}] = class\PYZus{}dict[label].sum(axis=1)}
+         \PY{c+c1}{\PYZsh{}     class\PYZus{}dict[label][\PYZsq{}word\PYZsq{}] = vect\PYZus{}dict[label].get\PYZus{}feature\PYZus{}names()}
+         \PY{c+c1}{\PYZsh{}     class\PYZus{}dict[label] = class\PYZus{}dict[label].sort\PYZus{}values(by=\PYZsq{}count\PYZus{}docs\PYZsq{},ascending=False).iloc[:5000,:]}
+         \PY{c+c1}{\PYZsh{}     tot\PYZus{}freq = class\PYZus{}dict[label][\PYZsq{}count\PYZus{}docs\PYZsq{}].sum()}
+         \PY{c+c1}{\PYZsh{}     class\PYZus{}dict[label][\PYZsq{}p(w|c)\PYZsq{}] =  (class\PYZus{}dict[label][\PYZsq{}count\PYZus{}docs\PYZsq{}] + 30) / (tot\PYZus{}freq + (5000 * 30))}
+\end{Verbatim}
+
+
+    Considering the top 25 most frequent words for all labels, are there any
+words which occur in all the documents?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{top25\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{top25\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{25}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{intersect} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{top25\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{k}{for} \PY{n}{list\PYZus{}} \PY{o+ow}{in} \PY{n}{top25\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{:}
+             \PY{n}{intersect}\PY{o}{.}\PY{n}{intersection\PYZus{}update}\PY{p}{(}\PY{n}{list\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{intersect}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'newsgroups', 'organization', 'path', 'date', 'the', 'lines', 'messageid', 'subject', 'from'\}
+
+    \end{Verbatim}
+
+    Removing these words from each dictionary and recalculating
+probabilities
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{intersect}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tot\PYZus{}freq} \PY{o}{=} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p(w|c)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{30}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{tot\PYZus{}freq} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{5000} \PY{o}{*} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/jishnu/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:5: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  """
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{} Final Word Dictionary for each class}
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p(w|c)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{c+c1}{\PYZsh{}class\PYZus{}dict[\PYZsq{}comp.graphics\PYZsq{}]}
+\end{Verbatim}
+
+
+    The words \textbf{cmu, edu,com,cs} can be removed for better results
+
+    \hypertarget{calculating-class-priors}{%
+\subsection{Calculating Class Priors}\label{calculating-class-priors}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{class\PYZus{}priors\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{n}{total\PYZus{}freq} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{files\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{class\PYZus{}priors\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{files\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{files\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{total\PYZus{}freq} \PY{o}{+}\PY{o}{=} \PY{n}{class\PYZus{}priors\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}
+        \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{files\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{class\PYZus{}priors\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{class\PYZus{}priors\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{/} \PY{n}{total\PYZus{}freq}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{class\PYZus{}priors\PYZus{}dict}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} \{'comp.graphics': 0.050000000000000003,
+         'talk.religion.misc': 0.050000000000000003,
+         'rec.sport.baseball': 0.050000000000000003,
+         'comp.sys.ibm.pc.hardware': 0.050000000000000003,
+         'rec.motorcycles': 0.050000000000000003,
+         'talk.politics.guns': 0.050000000000000003,
+         'misc.forsale': 0.050000000000000003,
+         'alt.atheism': 0.050000000000000003,
+         'talk.politics.misc': 0.050000000000000003,
+         'talk.politics.mideast': 0.050000000000000003,
+         'rec.autos': 0.050000000000000003,
+         'comp.windows.x': 0.050000000000000003,
+         'sci.crypt': 0.050000000000000003,
+         'sci.electronics': 0.050000000000000003,
+         'soc.religion.christian': 0.0499,
+         'rec.sport.hockey': 0.050000000000000003,
+         'comp.os.ms-windows.misc': 0.050000000000000003,
+         'sci.space': 0.050000000000000003,
+         'comp.sys.mac.hardware': 0.050000000000000003,
+         'sci.med': 0.050000000000000003\}
+\end{Verbatim}
+            
+    \hypertarget{calculating-training-accuracy}{%
+\subsubsection{Calculating Training
+Accuracy}\label{calculating-training-accuracy}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{train\PYZus{}predicted} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}class\PYZus{}posterior\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{for} \PY{n}{train\PYZus{}doc} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{train\PYZus{}doc}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{filein}\PY{p}{:}
+                     \PY{n}{data} \PY{o}{=} \PY{n}{filein}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+             \PY{n}{words} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{W+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{p}{)}
+             \PY{n}{words} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n}{class\PYZus{}priors\PYZus{}dict}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{v}\PY{p}{)} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{try}\PY{p}{:}
+                         \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{+} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{word}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{except}\PY{p}{:}
+                         \PY{k}{pass}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{v}\PY{p}{)} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n}{train\PYZus{}predicted} \PY{o}{=} \PY{n}{train\PYZus{}predicted}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb}{max}\PY{p}{(}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{get}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}class\PYZus{}posterior\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb}{max}\PY{p}{(}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{,}\PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{train\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}   
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Accuracy : }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{train\PYZus{}predicted}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{train\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{train\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{train\PYZus{}predicted}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{)}            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training Accuracy : 0.05
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{} train\PYZus{}predicted = pd.DataFrame(columns=[\PYZsq{}predicted\PYZsq{},\PYZsq{}max\PYZus{}class\PYZus{}posterior\PYZus{}prob\PYZsq{}])}
+         \PY{c+c1}{\PYZsh{} for train\PYZus{}doc in list(train[\PYZsq{}filename\PYZsq{}]):}
+         \PY{c+c1}{\PYZsh{}     vect\PYZus{}train = CountVectorizer(input=\PYZsq{}filename\PYZsq{},analyzer=\PYZsq{}word\PYZsq{},stop\PYZus{}words=\PYZsq{}english\PYZsq{},decode\PYZus{}error=\PYZsq{}ignore\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}     train\PYZus{}docterm = pd.DataFrame(vect\PYZus{}train.fit\PYZus{}transform([train\PYZus{}doc]).todense().T)}
+         \PY{c+c1}{\PYZsh{}     \PYZsh{}print(vect\PYZus{}train.get\PYZus{}feature\PYZus{}names())}
+         \PY{c+c1}{\PYZsh{}     log\PYZus{}posterior\PYZus{}dict = class\PYZus{}priors\PYZus{}dict}
+         \PY{c+c1}{\PYZsh{}     log\PYZus{}posterior\PYZus{}dict = dict([(k,math.log(v)) for (k,v) in log\PYZus{}posterior\PYZus{}dict.items()])}
+         \PY{c+c1}{\PYZsh{}     for word in vect\PYZus{}train.get\PYZus{}feature\PYZus{}names():}
+         \PY{c+c1}{\PYZsh{}         for k,v in log\PYZus{}posterior\PYZus{}dict.items():}
+         \PY{c+c1}{\PYZsh{}             try:}
+         \PY{c+c1}{\PYZsh{}                 log\PYZus{}posterior\PYZus{}dict[k] = log\PYZus{}posterior\PYZus{}dict[k] + math.log(class\PYZus{}dict[k][word])}
+         \PY{c+c1}{\PYZsh{}             except:}
+         \PY{c+c1}{\PYZsh{}                 pass}
+         \PY{c+c1}{\PYZsh{}     log\PYZus{}posterior\PYZus{}dict = dict([(k,np.exp(v)) for (k,v) in log\PYZus{}posterior\PYZus{}dict.items()])}
+         \PY{c+c1}{\PYZsh{}     train\PYZus{}predicted = train\PYZus{}predicted.append(\PYZob{}\PYZsq{}predicted\PYZsq{}:max(log\PYZus{}posterior\PYZus{}dict, key=log\PYZus{}posterior\PYZus{}dict.get),\PYZsq{}max\PYZus{}class\PYZus{}posterior\PYZus{}prob\PYZsq{}:max(log\PYZus{}posterior\PYZus{}dict.values())\PYZcb{},ignore\PYZus{}index=True)}
+         \PY{c+c1}{\PYZsh{} train\PYZus{}predicted[\PYZsq{}actual\PYZsq{}] = train[\PYZsq{}label\PYZsq{}]   }
+         \PY{c+c1}{\PYZsh{} print(\PYZsq{}Training Accuracy : \PYZob{}\PYZcb{}\PYZsq{}.format(np.round(train\PYZus{}predicted.loc[train\PYZus{}predicted[\PYZsq{}predicted\PYZsq{}] == train\PYZus{}predicted[\PYZsq{}actual\PYZsq{}]].shape[0]/train\PYZus{}predicted.shape[0],4)))            }
+\end{Verbatim}
+
+
+    \hypertarget{calculating-test-accuracy}{%
+\subsubsection{Calculating Test
+Accuracy}\label{calculating-test-accuracy}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{test\PYZus{}predicted} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}class\PYZus{}posterior\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{for} \PY{n}{test\PYZus{}doc} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{test\PYZus{}doc}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{filein}\PY{p}{:}
+                     \PY{n}{data} \PY{o}{=} \PY{n}{filein}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+             \PY{n}{words} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{W+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{p}{)}
+             \PY{n}{words} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n}{class\PYZus{}priors\PYZus{}dict}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{v}\PY{p}{)} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{try}\PY{p}{:}
+                         \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{+} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{word}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{except}\PY{p}{:}
+                         \PY{k}{pass}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{v}\PY{p}{)} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n}{test\PYZus{}predicted} \PY{o}{=} \PY{n}{test\PYZus{}predicted}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb}{max}\PY{p}{(}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{get}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}class\PYZus{}posterior\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb}{max}\PY{p}{(}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{,}\PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{test\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}   
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing Accuracy : }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{test\PYZus{}predicted}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{test\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{test\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{test\PYZus{}predicted}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{)}            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Testing Accuracy : 0.05
+
+    \end{Verbatim}
+
+    It is seen that the training and test accuracy are 5\%
+
+    \hypertarget{creating-dictionary-of-10000-most-frequent-words-in-each-class}{%
+\subsection{Creating dictionary of 10,000 most frequent words in each
+class}\label{creating-dictionary-of-10000-most-frequent-words-in-each-class}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Dictionary to hold vectorizer objects}
+        \PY{n}{vect\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{c+c1}{\PYZsh{} Dictionary to hold Document term matrix for each class.}
+        \PY{c+c1}{\PYZsh{} The document term matrix is converted to a Pandas DataFrame}
+        \PY{n}{class\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} List to hold words for each label}
+            \PY{n}{class\PYZus{}words\PYZus{}preprocessed} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{filename} \PY{o+ow}{in} \PY{n}{train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{filein}\PY{p}{:}
+                    \PY{n}{data} \PY{o}{=} \PY{n}{filein}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+                \PY{n}{words} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{W+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{p}{)}
+                \PY{n}{words} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+                \PY{n}{class\PYZus{}words\PYZus{}preprocessed}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{)}
+            \PY{n}{vect\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n+nb}{input}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{content}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{analyzer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{decode\PYZus{}error}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{vect\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{class\PYZus{}words\PYZus{}preprocessed}\PY{p}{)}\PY{o}{.}\PY{n}{todense}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+            \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{vect\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{get\PYZus{}feature\PYZus{}names}\PY{p}{(}\PY{p}{)}
+            \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10000}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+            \PY{n}{tot\PYZus{}freq} \PY{o}{=} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+            \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p(w|c)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{30}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{tot\PYZus{}freq} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{10000} \PY{o}{*} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}        
+                
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{c+c1}{\PYZsh{} \PYZsh{} Dictionary to hold vectorizer objects}
+         \PY{c+c1}{\PYZsh{} vect\PYZus{}dict = \PYZob{}\PYZcb{}}
+         \PY{c+c1}{\PYZsh{} \PYZsh{} Dictionary to hold Document term matrix for each class.}
+         \PY{c+c1}{\PYZsh{} \PYZsh{} The document term matrix is converted to a Pandas DataFrame}
+         \PY{c+c1}{\PYZsh{} class\PYZus{}dict = \PYZob{}\PYZcb{}}
+         \PY{c+c1}{\PYZsh{} for label in list(train[\PYZsq{}label\PYZsq{}].unique()):}
+         \PY{c+c1}{\PYZsh{}     vect\PYZus{}dict[label] = CountVectorizer(input=\PYZsq{}filename\PYZsq{},analyzer=\PYZsq{}word\PYZsq{},stop\PYZus{}words=\PYZsq{}english\PYZsq{},decode\PYZus{}error=\PYZsq{}ignore\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}     class\PYZus{}dict[label] = pd.DataFrame(vect\PYZus{}dict[label].fit\PYZus{}transform(list(train.loc[train[\PYZsq{}label\PYZsq{}] == label][\PYZsq{}filename\PYZsq{}])).todense().T)}
+         \PY{c+c1}{\PYZsh{}     class\PYZus{}dict[label][\PYZsq{}count\PYZus{}docs\PYZsq{}] = class\PYZus{}dict[label].sum(axis=1)}
+         \PY{c+c1}{\PYZsh{}     class\PYZus{}dict[label][\PYZsq{}word\PYZsq{}] = vect\PYZus{}dict[label].get\PYZus{}feature\PYZus{}names()}
+         \PY{c+c1}{\PYZsh{}     class\PYZus{}dict[label] = class\PYZus{}dict[label].sort\PYZus{}values(by=\PYZsq{}count\PYZus{}docs\PYZsq{},ascending=False).iloc[:10000,:]}
+         \PY{c+c1}{\PYZsh{}     tot\PYZus{}freq = class\PYZus{}dict[label][\PYZsq{}count\PYZus{}docs\PYZsq{}].sum()}
+         \PY{c+c1}{\PYZsh{}     class\PYZus{}dict[label][\PYZsq{}p(w|c)\PYZsq{}] =  (class\PYZus{}dict[label][\PYZsq{}count\PYZus{}docs\PYZsq{}] + 30) / (tot\PYZus{}freq + (10000 * 30))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{top25\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{top25\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{25}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{intersect} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{top25\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{k}{for} \PY{n}{list\PYZus{}} \PY{o+ow}{in} \PY{n}{top25\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{:}
+             \PY{n}{intersect}\PY{o}{.}\PY{n}{intersection\PYZus{}update}\PY{p}{(}\PY{n}{list\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{intersect}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'edu', 'cmu', 'cs', 'net', 'cantaloupe', 'subject', 'srv', 'message', 'com'\}
+
+    \end{Verbatim}
+
+    Removing these words from each dictionary and recalculating
+probabilities
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{intersect}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tot\PYZus{}freq} \PY{o}{=} \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p(w|c)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}docs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{30}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{tot\PYZus{}freq} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{5000} \PY{o}{*} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Final Word Dictionary for each class}
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p(w|c)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{calculating-training-accuracy}{%
+\subsubsection{Calculating Training
+Accuracy}\label{calculating-training-accuracy}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{train\PYZus{}predicted} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}class\PYZus{}posterior\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{for} \PY{n}{train\PYZus{}doc} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{train\PYZus{}doc}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{filein}\PY{p}{:}
+                     \PY{n}{data} \PY{o}{=} \PY{n}{filein}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+             \PY{n}{words} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{W+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{p}{)}
+             \PY{n}{words} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n}{class\PYZus{}priors\PYZus{}dict}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{v}\PY{p}{)} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{try}\PY{p}{:}
+                         \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{+} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{word}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{except}\PY{p}{:}
+                         \PY{k}{pass}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{v}\PY{p}{)} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n}{train\PYZus{}predicted} \PY{o}{=} \PY{n}{train\PYZus{}predicted}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb}{max}\PY{p}{(}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{get}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}class\PYZus{}posterior\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb}{max}\PY{p}{(}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{,}\PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{train\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}   
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Accuracy : }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{train\PYZus{}predicted}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{train\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{train\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{train\PYZus{}predicted}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{)}            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training Accuracy : 0.0162
+
+    \end{Verbatim}
+
+    \hypertarget{calculating-test-accuracy}{%
+\subsubsection{Calculating Test
+Accuracy}\label{calculating-test-accuracy}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{test\PYZus{}predicted} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}class\PYZus{}posterior\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{for} \PY{n}{test\PYZus{}doc} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{test\PYZus{}doc}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{filein}\PY{p}{:}
+                     \PY{n}{data} \PY{o}{=} \PY{n}{filein}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+             \PY{n}{words} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{W+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{p}{)}
+             \PY{n}{words} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n}{class\PYZus{}priors\PYZus{}dict}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{v}\PY{p}{)} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{try}\PY{p}{:}
+                         \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{+} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{class\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{word}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{except}\PY{p}{:}
+                         \PY{k}{pass}
+             \PY{n}{log\PYZus{}posterior\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{v}\PY{p}{)} \PY{o+ow}{in} \PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n}{test\PYZus{}predicted} \PY{o}{=} \PY{n}{test\PYZus{}predicted}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb}{max}\PY{p}{(}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{get}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}class\PYZus{}posterior\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb}{max}\PY{p}{(}\PY{n}{log\PYZus{}posterior\PYZus{}dict}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{,}\PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{test\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}   
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing Accuracy : }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{test\PYZus{}predicted}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{test\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{test\PYZus{}predicted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{test\PYZus{}predicted}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{)}            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Testing Accuracy : 0.0175
+
+    \end{Verbatim}
+
+    \textbf{It is seen that increasing the dictionary to 10,000 increases
+the training and test accuracies to 2.9\% and 3.6\%. This can be
+improved further.}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
